@@ -1,12 +1,13 @@
-import "../global.css"
-import { Text, View } from "react-native";
- 
-export default function App() {
+import React from "react";
+import { Text } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+
+const Splash = () => {
   return (
-    <View className="flex-1 items-center justify-center bg-white">
-      <Text className="text-xl font-bold text-blue-500">
-        Welcome to Nativewind!
-      </Text>
-    </View>
+    <SafeAreaView className="bg-[#53B175] h-screen">
+      <Text>this is the splash screen</Text>
+    </SafeAreaView>
   );
-}
+};
+
+export default Splash;
