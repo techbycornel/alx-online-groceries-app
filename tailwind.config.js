@@ -5,6 +5,13 @@ module.exports = {
     "./app/**/*.{js,jsx,ts,tsx}",
     "./components/**/*.{js,jsx,ts,tsx}",
   ],
+  theme: {
+    extend: {
+      fontFamily: {
+        gilroyRegular: "Gilroy-Regular"
+      }
+    },
+  },
   presets: [require("nativewind/preset")],
   safelist: [
     {
