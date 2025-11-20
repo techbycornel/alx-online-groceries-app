@@ -3,12 +3,16 @@ import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import React, { useEffect } from "react";
 import "../styles/global.css";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
 
 SplashScreen.preventAutoHideAsync();
+const queryClient = new QueryClient();
 
 export default function RootLayout() {
   const [fontsLoaded] = useFonts({
     "Gilroy-Regular": require("../assets/fonts/gilroy/gilroy-regular.ttf"),
+    "Gilroy-SemiBold": require("../assets/fonts/gilroy/gilroy-semibold.ttf"),
   });
 
   useEffect(() => {
@@ -20,10 +24,22 @@ export default function RootLayout() {
   if (!fontsLoaded) return null;
 
   return (
-    <Stack screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="index" />
+    <QueryClientProvider client={queryClient}>
+      <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="index" />
 
-      <Stack.Screen name="home" />
-    </Stack>
+        <Stack.Screen name="home" />
+
+        <Stack.Screen name="login-options" />
+
+        <Stack.Screen name="otp" />
+
+        <Stack.Screen name="location" />
+
+        <Stack.Screen name="login" />
+
+        <Stack.Screen name="signup" />
+      </Stack>
+    </QueryClientProvider>
   );
 }

@@ -8,8 +8,9 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        gilroyRegular: "Gilroy-Regular"
-      }
+        gilroyRegular: "Gilroy-Regular",
+        gilroySemiBold: "Gilroy-SemiBold",
+      },
     },
   },
   presets: [require("nativewind/preset")],
@@ -20,6 +21,9 @@ module.exports = {
     },
     {
       pattern: /(rounded)-(none|sm|md|lg|xl|2xl|3xl|full)/,
+    },
+    {
+      pattern: /^bg-.+/,
     },
   ],
   plugins: [],

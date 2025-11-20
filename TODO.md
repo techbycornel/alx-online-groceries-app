@@ -1,0 +1,2 @@
+- [x] Update component/icons/index.ts to use require() for SVG imports to enable use as image sources in ImageBackground
+- [x] Test the app to ensure SVG background works correctly
