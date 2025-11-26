@@ -7,6 +7,7 @@ export const Products = [
     image: require("@/assets/images/products/pepper.png"),
     category: "vegetables",
     rate: 4.5,
+    description: "Fresh red bell peppers, perfect for salads and cooking. ",
   },
   {
     id: 2,
@@ -16,6 +17,7 @@ export const Products = [
     image: require("@/assets/images/products/egg.png"),
     category: "meat",
     rate: 4.0,
+    description: "Organic red chicken eggs, rich in flavor and nutrients.",
   },
   {
     id: 3,
@@ -25,6 +27,8 @@ export const Products = [
     image: require("@/assets/images/products/plantain.png"),
     category: "fruits",
     rate: 4.8,
+    description:
+      "Sweet and ripe organic bananas, great for snacks and smoothies.",
   },
   {
     id: 4,
@@ -34,6 +38,8 @@ export const Products = [
     image: require("@/assets/images/products/apple.png"),
     category: "vegetables",
     rate: 4.5,
+    description:
+      "Crisp and juicy red apples, perfect for eating fresh or baking.",
   },
   {
     id: 5,
@@ -43,6 +49,7 @@ export const Products = [
     image: require("@/assets/images/products/ginger.png"),
     category: "vegetables",
     rate: 4.2,
+    description: "Fresh ginger root, ideal for cooking and medicinal uses.",
   },
   {
     id: 6,
@@ -52,6 +59,8 @@ export const Products = [
     image: require("@/assets/images/products/Beef-Bone.png"),
     category: "meat",
     rate: 4.1,
+    description:
+      "High-quality beef bones, perfect for making flavorful broths.",
   },
   {
     id: 7,
@@ -61,6 +70,7 @@ export const Products = [
     image: require("@/assets/images/products/coke.png"),
     category: "fruits",
     rate: 4.8,
+    description: "Refreshing diet coke with zero sugar and great taste.",
   },
   {
     id: 8,
@@ -69,7 +79,8 @@ export const Products = [
     price: "4.99",
     image: require("@/assets/images/products/sprite.png"),
     category: "vegetables",
-    rate: 4.
+    rate: 4,
+    description: "Chilled spirit can, perfect for quenching your thirst.",
   },
   {
     id: 9,
@@ -79,6 +90,7 @@ export const Products = [
     image: require("@/assets/images/products/perpsi.png"),
     category: "fruits",
     rate: 4.8,
+    description: "Classic pepsi can, delivering a bold and refreshing flavor.",
   },
   {
     id: 10,
@@ -87,6 +99,7 @@ export const Products = [
     price: "5.99",
     image: require("@/assets/images/products/chicken.png"),
     category: "meat",
-    rate: 4.3,  
-  }
+    rate: 4.3,
+    description: "Delicious chicken kebabs, marinated and ready to grill.",
+  },
 ];

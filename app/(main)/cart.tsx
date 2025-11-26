@@ -1,6 +1,6 @@
 import DefaultBtn from "@/component/Buttons/DefaultBtn";
-import { CartItems } from "@/component/data/CartItem";
 import { Icons } from "@/component/icons";
+import { RootState } from "@/store";
 import { useRouter } from "expo-router";
 import React from "react";
 import {
@@ -13,11 +13,15 @@ import {
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useSelector } from "react-redux";
 
 const Cart = () => {
   const router = useRouter();
   const [visible, setVisible] = React.useState(false);
   const slideAnim = React.useRef(new Animated.Value(0)).current;
+
+  const cartItems = useSelector((state: RootState) => state.cart.items);
+  console.log(cartItems);
 
   const handleClose = (id: number) => {};
   const handleIncrease = (id: number) => {
@@ -49,15 +53,57 @@ const Cart = () => {
     router.push("/Confirm");
   };
 
+  const renderItem = ({ item }: { item: any }) => (
+    <View className="flex-row gap-10 items-center w-full border-b-2 pb-5 border-[#E2E2E2] mb-5">
+      <Image source={item.image} className="h-20 w-20" resizeMode="contain" />
+
+      <View className="flex-row justify-between flex-1">
+        <View className="flex-col gap-8">
+          <View>
+            <Text className="font-gilroySemiBold text-xl">{item.name}</Text>
+            <Text className="text-[#7C7C7C] text-lg">
+              {item.measurement}, Price
+            </Text>
+          </View>
+
+          <View className="flex-row gap-5 items-center">
+            <TouchableOpacity
+              onPress={() => handleDecrease(item.id)}
+              className="border border-[#E2E2E2] px-4 py-5 rounded-2xl"
+            >
+              <Icons.Minus width={14} height={14} />
+            </TouchableOpacity>
+
+            <Text className="font-gilroySemiBold text-xl">{item.quantity}</Text>
+
+            <TouchableOpacity
+              onPress={() => handleIncrease(item.id)}
+              className="border border-[#E2E2E2] px-4 py-5 rounded-2xl"
+            >
+              <Icons.Plus color="#53B175" width={14} height={14} />
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        <View className="justify-between items-center">
+          <TouchableOpacity onPress={() => handleClose(item.id)}>
+            <Icons.Close width={20} height={20} />
+          </TouchableOpacity>
+
+          <Text className="text-2xl font-gilroySemiBold">${item.price}</Text>
+        </View>
+      </View>
+    </View>
+  );
+
   return (
     <SafeAreaView className="p-5 flex-1 bg-white">
       <FlatList
-        data={CartItems}
+        data={cartItems}
         keyExtractor={(item) => item.id.toString()}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 40 }}
+        renderItem={renderItem}
         ListFooterComponent={
-          CartItems.length > 0 ? (
+          cartItems.length > 0 ? (
             <TouchableOpacity
               className="bg-[#53B175] w-full items-center p-5 rounded-3xl  flex-row justify-between gap-5 mt-5"
               onPress={handleCart}
@@ -76,58 +122,11 @@ const Cart = () => {
             </TouchableOpacity>
           ) : null
         }
-        renderItem={({ item }) => (
-          <View className="flex-row gap-10 items-center w-full border-b-2 pb-5 border-[#E2E2E2] mb-5">
-            <Image
-              source={item.image}
-              className="h-20 w-20"
-              resizeMode="contain"
-            />
-
-            <View className="flex-row justify-between flex-1">
-              <View className="flex-col gap-8">
-                <View>
-                  <Text className="font-gilroySemiBold text-xl">
-                    {item.name}
-                  </Text>
-                  <Text className="text-[#7C7C7C] text-lg">
-                    {item.measurement}, Price
-                  </Text>
-                </View>
-
-                <View className="flex-row gap-5 items-center">
-                  <TouchableOpacity
-                    onPress={() => handleDecrease(item.id)}
-                    className="border border-[#E2E2E2] px-4 py-5 rounded-2xl"
-                  >
-                    <Icons.Minus width={14} height={14} />
-                  </TouchableOpacity>
-
-                  <Text className="font-gilroySemiBold text-xl">
-                    {item.quantity}
-                  </Text>
-
-                  <TouchableOpacity
-                    onPress={() => handleIncrease(item.id)}
-                    className="border border-[#E2E2E2] px-4 py-5 rounded-2xl"
-                  >
-                    <Icons.Plus color="#53B175" width={14} height={14} />
-                  </TouchableOpacity>
-                </View>
-              </View>
-
-              <View className="justify-between items-center">
-                <TouchableOpacity onPress={() => handleClose(item.id)}>
-                  <Icons.Close width={20} height={20} />
-                </TouchableOpacity>
-
-                <Text className="text-2xl font-gilroySemiBold">
-                  ${item.price}
-                </Text>
-              </View>
-            </View>
+        ListEmptyComponent={
+          <View className="items-center mt-10">
+            <Text className="text-gray-500 text-lg">Your cart is empty</Text>
           </View>
-        )}
+        }
       />
 
       <Modal transparent visible={visible} animationType="fade">
@@ -141,7 +140,7 @@ const Cart = () => {
 
         {/* Bottom Sheet */}
         <Animated.View
-        className=" absolute bottom-0 w-full h-3/6 bg-white px-5 gap-5"
+          className=" absolute bottom-0 w-full h-3/6 bg-white px-5 gap-5"
           style={{
             borderTopLeftRadius: 30,
             borderTopRightRadius: 30,

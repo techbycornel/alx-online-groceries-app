@@ -6,6 +6,9 @@ import * as SplashScreen from "expo-splash-screen";
 import React, { useEffect } from "react";
 import { TouchableOpacity, View } from "react-native";
 import "../styles/global.css";
+import { Provider } from "react-redux";
+import { store } from "../store"; // make sure path is correct
+
 
 SplashScreen.preventAutoHideAsync();
 const queryClient = new QueryClient();
@@ -25,42 +28,44 @@ export default function RootLayout() {
   if (!fontsLoaded) return null;
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="index" />
+    <Provider store={store}>
+      <QueryClientProvider client={queryClient}>
+        <Stack screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="index" />
 
-        <Stack.Screen name="home" />
+          <Stack.Screen name="home" />
 
-        <Stack.Screen name="login-options" />
+          <Stack.Screen name="login-options" />
 
-        <Stack.Screen name="otp" />
+          <Stack.Screen name="otp" />
 
-        <Stack.Screen name="location" />
+          <Stack.Screen name="location" />
 
-        <Stack.Screen name="login" />
+          <Stack.Screen name="login" />
 
-        <Stack.Screen name="signup" />
+          <Stack.Screen name="signup" />
 
-        <Stack.Screen name="Confirm" />
+          <Stack.Screen name="Confirm" />
 
-        <Stack.Screen
-          name="[id]"
-          options={{
-            headerShown: true,
-            headerTitle: () => (
-              <View className="flex-row items-center gap-2 justify-between">
-                <View />
+          <Stack.Screen
+            name="[id]"
+            options={{
+              headerShown: true,
+              headerTitle: () => (
+                <View className="flex-row items-center gap-2 justify-between">
+                  <View />
 
-                <View>
-                  <TouchableOpacity>
-                    <Icons.Download width={20} height={20} />
-                  </TouchableOpacity>
+                  <View>
+                    <TouchableOpacity>
+                      <Icons.Download width={20} height={20} />
+                    </TouchableOpacity>
+                  </View>
                 </View>
-              </View>
-            ),
-          }}
-        />
-      </Stack>
-    </QueryClientProvider>
+              ),
+            }}
+          />
+        </Stack>
+      </QueryClientProvider>
+    </Provider>
   );
 }
