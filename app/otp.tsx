@@ -83,7 +83,7 @@ const Otp = () => {
               disabled={otp.length !== 4}
               className="p-5 rounded-full bg-[#53B175]"
             >
-              <Icons.GreaterThan width={18} height={18} fill="#fff" />
+              <Icons.GreaterThan width={18} height={18} color="#fff" />
             </TouchableOpacity>
           </View>
         </KeyboardAvoidingView>

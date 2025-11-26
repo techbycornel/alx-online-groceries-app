@@ -1,10 +1,11 @@
+import { Icons } from "@/component/icons";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import React, { useEffect } from "react";
+import { TouchableOpacity, View } from "react-native";
 import "../styles/global.css";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-
 
 SplashScreen.preventAutoHideAsync();
 const queryClient = new QueryClient();
@@ -39,6 +40,26 @@ export default function RootLayout() {
         <Stack.Screen name="login" />
 
         <Stack.Screen name="signup" />
+
+        <Stack.Screen name="Confirm" />
+
+        <Stack.Screen
+          name="[id]"
+          options={{
+            headerShown: true,
+            headerTitle: () => (
+              <View className="flex-row items-center gap-2 justify-between">
+                <View />
+
+                <View>
+                  <TouchableOpacity>
+                    <Icons.Download width={20} height={20} />
+                  </TouchableOpacity>
+                </View>
+              </View>
+            ),
+          }}
+        />
       </Stack>
     </QueryClientProvider>
   );

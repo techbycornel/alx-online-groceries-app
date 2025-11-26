@@ -1,5 +1,6 @@
-import { Tabs } from "expo-router";
+import Header from "@/component/Header";
 import { Ionicons } from "@expo/vector-icons";
+import { Tabs } from "expo-router";
 
 export default function MainLayout() {
   return (
@@ -24,6 +25,10 @@ export default function MainLayout() {
         name="explore"
         options={{
           title: "Explore",
+          headerShown: true,
+          headerTitle: () => {
+            return <Header title="Find Products" rightIcon="" leftIcon="" />;
+          },
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="search-outline" size={size} color={color} />
           ),
@@ -34,6 +39,10 @@ export default function MainLayout() {
         name="cart"
         options={{
           title: "Cart",
+          headerShown: true,
+          headerTitle: () => {
+            return <Header title="My Cart" rightIcon="" leftIcon="" />;
+          },
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="cart-outline" size={size} color={color} />
           ),
@@ -44,6 +53,10 @@ export default function MainLayout() {
         name="favourite"
         options={{
           title: "Favourite",
+          headerShown: true,
+          headerTitle: () => {
+            return <Header title="Favourite" rightIcon="" leftIcon="" />;
+          },
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="heart-outline" size={size} color={color} />
           ),

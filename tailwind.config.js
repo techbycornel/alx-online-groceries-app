@@ -25,6 +25,10 @@ module.exports = {
     {
       pattern: /^bg-.+/,
     },
+    {
+      pattern:
+        /\b(w|h)-(?:\d+|full|screen|auto|fit|min|max|[\[\]0-9%px/.-]+)\b/,
+    },
   ],
   plugins: [],
 };

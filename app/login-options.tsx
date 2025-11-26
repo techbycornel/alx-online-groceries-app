@@ -150,14 +150,13 @@ const LoginOptions = () => {
               />
             </View>
 
-            {/* CONTINUE BUTTON (Only shows if phone is entered) */}
             <View className="flex justify-end items-end">
               {phone.length > 0 && (
                 <TouchableOpacity
                   onPress={() => router.push("/otp")} // <- SET YOUR NEXT SCREEN
                   className="bg-[#53B175] p-5 items-center mt-8 rounded-full"
                 >
-                  <Icons.GreaterThan width="18" height="18" fill="#fff" />
+                  <Icons.GreaterThan width="18" height="18" color="white" />
                 </TouchableOpacity>
               )}
             </View>
