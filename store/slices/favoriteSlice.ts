@@ -1,22 +1,35 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+interface Product {
+  id: number;
+  name: string;
+  price: number;
+  quantity?: number;
+  image: any;
+  measurement: string;
+}
+
 interface FavoriteState {
-  ids: number[];
+  items: Product[];
 }
 
 const initialState: FavoriteState = {
-  ids: [],
+  items: [],
 };
 
 const favoriteSlice = createSlice({
   name: "favorite",
   initialState,
   reducers: {
-    toggleFavorite: (state, action: PayloadAction<number>) => {
-      if (state.ids.includes(action.payload)) {
-        state.ids = state.ids.filter(id => id !== action.payload);
+    toggleFavorite: (state, action: PayloadAction<Product>) => {
+      const exists = state.items.find(item => item.id === action.payload.id);
+
+      if (exists) {
+        // Remove item
+        state.items = state.items.filter(item => item.id !== action.payload.id);
       } else {
-        state.ids.push(action.payload);
+        // Add full product object
+        state.items.push(action.payload);
       }
     },
   },

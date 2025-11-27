@@ -13,21 +13,26 @@ import {
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  decreaseQuantity,
+  increaseQuantity,
+  removeFromCart,
+} from "../../store/slices/cartSlice";
 
 const Cart = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
+  const [productCount, setProductCount] = React.useState(1);
+
   const [visible, setVisible] = React.useState(false);
   const slideAnim = React.useRef(new Animated.Value(0)).current;
 
   const cartItems = useSelector((state: RootState) => state.cart.items);
-  console.log(cartItems);
-
-  const handleClose = (id: number) => {};
-  const handleIncrease = (id: number) => {
-    console.log(id);
-  };
-  const handleDecrease = (id: number) => {};
+  const totalCost = cartItems.reduce(
+    (acc: number, item: any) => acc + item.price * item.quantity,
+    0
+  );
 
   const handleCloseModal = () => {
     Animated.timing(slideAnim, {
@@ -51,6 +56,23 @@ const Cart = () => {
 
   const handleConfirm = () => {
     router.push("/Confirm");
+  };
+
+  const handleDecrease = (id: number) => {
+    if (productCount > 1) {
+      setProductCount(productCount - 1);
+    }
+    setProductCount(productCount - 1);
+    dispatch(decreaseQuantity(id));
+  };
+
+  const handleIncrease = (id: number) => {
+    setProductCount(productCount + 1);
+    dispatch(increaseQuantity(id));
+  };
+
+  const handleDelete = (id: number) => {
+    dispatch(removeFromCart(id));
   };
 
   const renderItem = ({ item }: { item: any }) => (
@@ -86,7 +108,7 @@ const Cart = () => {
         </View>
 
         <View className="justify-between items-center">
-          <TouchableOpacity onPress={() => handleClose(item.id)}>
+          <TouchableOpacity onPress={() => handleDelete(item.id)}>
             <Icons.Close width={20} height={20} />
           </TouchableOpacity>
 
@@ -116,7 +138,7 @@ const Cart = () => {
 
               <View>
                 <Text className="text-white bg-[#489E67] p-1 font-gilroySemiBold">
-                  $100.00
+                  ${totalCost.toFixed(2)}
                 </Text>
               </View>
             </TouchableOpacity>
@@ -207,7 +229,9 @@ const Cart = () => {
               </Text>
 
               <View className="flex-row items-center gap-2">
-                <Text className="font-gilroySemiBold text-lg">$100.00</Text>
+                <Text className="font-gilroySemiBold text-lg">
+                  $ {totalCost.toFixed(2)}
+                </Text>
                 <Icons.GreaterThan width={12} height={12} />
               </View>
             </View>

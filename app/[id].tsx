@@ -2,23 +2,21 @@ import DefaultBtn from "@/component/Buttons/DefaultBtn";
 import { Products } from "@/component/data/product";
 import { Icons } from "@/component/icons";
 import { RootState } from "@/store";
-import { addToCart } from "../store/slices/cartSlice";
-import { toggleFavorite } from "../store/slices/favoriteSlice";
 import { useLocalSearchParams } from "expo-router";
 import React from "react";
 import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../store/slices/cartSlice";
+import { toggleFavorite } from "../store/slices/favoriteSlice";
 
 const Details = () => {
   const dispatch = useDispatch();
-  const favoriteIds = useSelector((state: RootState) => state.favorite.ids);
+  const favorites = useSelector((state: RootState) => state.favorite.items);
+  const isFavorite = favorites.some((item) => item.id === product?.id);
   const [productCount, setProductCount] = React.useState(1);
   const params = useLocalSearchParams();
   const id = params.id;
   const product = Products.find((item) => item.id === Number(id));
-  console.log("Test something: ", product);
-  
-
   const handleIncrease = () => {
     setProductCount(productCount + 1);
   };
@@ -31,6 +29,7 @@ const Details = () => {
 
   const handleAddToCart = () => {
     if (!product) return;
+
     dispatch(
       addToCart({
         id: product.id,
@@ -43,8 +42,12 @@ const Details = () => {
     );
   };
 
-  const handleToggleFavorite = (id: number) => {
-    dispatch(toggleFavorite(id));
+  const handleToggleFavorite = () => {
+    if (!product) return;
+    dispatch(toggleFavorite({
+      ...product,
+      price: typeof product.price === 'string' ? parseFloat(product.price) : product.price,
+    }));
   };
 
   return (
@@ -71,7 +74,7 @@ const Details = () => {
                 {product?.category}
               </Text>
             </View>
-            <TouchableOpacity onPress={() => handleToggleFavorite(product!.id)}>
+            <TouchableOpacity onPress={handleToggleFavorite}>
               <Icons.Favorite width={24} height={24} />
             </TouchableOpacity>
           </View>
